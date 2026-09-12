@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Central de Operações</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body>
+
+<div class="app">
+
+
+    <!-- ================================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                🚨
+            </div>
+
+            <div>
+
+                <strong>
+                    CENTRAL
+                </strong>
+
+                <span>
+                    DE OPERAÇÕES
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="system-status">
+
+            <span class="status-dot"></span>
+
+            SISTEMA OPERACIONAL
+
+        </div>
+
+
+        <nav>
+
+            <button
+                class="nav-button active"
+                onclick="mostrarPagina('dashboard')"
+            >
+                📊
+                <span>Dashboard</span>
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="mostrarPagina('nova')"
+            >
+                🚨
+                <span>Nova ocorrência</span>
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="mostrarPagina('ocorrencias')"
+            >
+                📋
+                <span>Ocorrências</span>
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="mostrarPagina('meios')"
+            >
+                🚒
+                <span>Meios</span>
+            </button>
+
+
+            <button
+                class="nav-button"
+                onclick="mostrarPagina('mapa')"
+            >
+                🗺️
+                <span>Mapa operacional</span>
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="operator">
+
+                <div class="operator-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <strong>
+                        OPERADOR
+                    </strong>
+
+                    <small>
+                        Central
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================================================= -->
+    <!-- MAIN -->
+    <!-- ================================================= -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="topbar">
+
+            <div>
+
+                <div class="breadcrumb">
+                    CENTRAL / <span id="paginaNome">
+                    DASHBOARD
+                    </span>
+                </div>
+
+                <h1 id="tituloPagina">
+                    Dashboard Operacional
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="clock">
+
+                    <strong id="hora">
+                        --:--:--
+                    </strong>
+
+                    <small id="data">
+                        --
+                    </small>
+
+                </div>
+
+
+                <button
+                    class="refresh-button"
+                    onclick="carregarDashboard()"
+                    title="Atualizar"
+                >
+                    ↻
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD -->
+        <!-- ================================================= -->
+
+        <section
+            id="pagina-dashboard"
+            class="page active"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SITUAÇÃO OPERACIONAL
+                    </span>
+
+                    <h2>
+                        Visão geral
+                    </h2>
+
+                </div>
+
+
+                <button
+                    class="primary-button"
+                    onclick="mostrarPagina('nova')"
+                >
+                    + NOVA OCORRÊNCIA
+                </button>
+
+            </div>
+
+
+            <!-- CARDS -->
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon">
+                        🚨
+                    </div>
+
+                    <div>
+
+                        <span>
+                            TOTAL
+                        </span>
+
+                        <strong id="statTotal">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card red">
+
+                    <div class="stat-icon">
+                        🔴
+                    </div>
+
+                    <div>
+
+                        <span>
+                            ABERTAS
+                        </span>
+
+                        <strong id="statAbertas">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-icon">
+                        🟠
+                    </div>
+
+                    <div>
+
+                        <span>
+                            EM DESPACHO
+                        </span>
+
+                        <strong id="statDespacho">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card blue">
+
+                    <div class="stat-icon">
+                        🔵
+                    </div>
+
+                    <div>
+
+                        <span>
+                            EM CURSO
+                        </span>
+
+                        <strong id="statCurso">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card critical">
+
+                    <div class="stat-icon">
+                        ⚠️
+                    </div>
+
+                    <div>
+
+                        <span>
+                            CRÍTICAS
+                        </span>
+
+                        <strong id="statCriticas">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- OCORRÊNCIAS RECENTES -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <span class="eyebrow">
+                            OPERAÇÕES
+                        </span>
+
+                        <h3>
+                            Ocorrências recentes
+                        </h3>
+
+                    </div>
+
+                    <button
+                        class="ghost-button"
+                        onclick="mostrarPagina('ocorrencias')"
+                    >
+                        Ver todas →
+                    </button>
+
+                </div>
+
+
+                <div id="dashboardOcorrencias">
+
+                    <div class="empty">
+                        A carregar ocorrências...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- NOVA OCORRÊNCIA -->
+        <!-- ================================================= -->
+
+        <section
+            id="pagina-nova"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        REGISTO OPERACIONAL
+                    </span>
+
+                    <h2>
+                        Nova ocorrência
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <form
+                id="formOcorrencia"
+                onsubmit="criarOcorrencia(event)"
+            >
+
+
+                <!-- DADOS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Dados da ocorrência
+                        </h3>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="field">
+
+                            <label>
+                                Número
+                            </label>
+
+                            <input
+                                id="numero"
+                                value="AUTOMÁTICO"
+                                readonly
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Data e hora
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                id="dataHora"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Local da ocorrência *
+                            </label>
+
+                            <input
+                                id="local"
+                                placeholder="Ex.: Avenida Central, Los Santos"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Prioridade
+                            </label>
+
+                            <select id="prioridade">
+
+                                <option>
+                                    Baixa
+                                </option>
+
+                                <option>
+                                    Média
+                                </option>
+
+                                <option selected>
+                                    Alta
+                                </option>
+
+                                <option>
+                                    Crítica
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                COS
+                            </label>
+
+                            <input
+                                id="cos"
+                                placeholder="Comandante das Operações"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Contacto / Canal
+                            </label>
+
+                            <input
+                                id="contacto"
+                                placeholder="Rádio / telefone / canal"
+                            >
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Descrição
+                            </label>
+
+                            <textarea
+                                id="descricao"
+                                rows="3"
+                                placeholder="Descrição inicial da ocorrência..."
+                            ></textarea>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CLASSIFICAÇÃO -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+
+                            <span class="eyebrow">
+                                CLASSIFICAÇÃO
+                            </span>
+
+                            <h3>
+                                Tipo de ocorrência
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="field">
+
+                            <label>
+                                Família
+                            </label>
+
+                            <select id="familia">
+
+                                <option value="">
+                                    Selecionar família
+                                </option>
+
+                                <option value="Riscos Naturais">
+                                    1 — Riscos Naturais
+                                </option>
+
+                                <option value="Riscos Tecnológicos">
+                                    2 — Riscos Tecnológicos
+                                </option>
+
+                                <option value="Riscos Mistos">
+                                    3 — Riscos Mistos
+                                </option>
+
+                                <option value="Proteção e assistência">
+                                    4 — Proteção e assistência
+                                </option>
+
+                                <option value="Operações e estados de alerta">
+                                    9 — Operações e estados de alerta
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Espécie
+                            </label>
+
+                            <select id="especie">
+
+                                <option>
+                                    Selecionar
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Tipo de ocorrência *
+                            </label>
+
+                            <input
+                                id="tipoOcorrencia"
+                                placeholder="Ex.: Incêndio urbano"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Código
+                            </label>
+
+                            <input
+                                id="codigoOcorrencia"
+                                placeholder="Ex.: 2101"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COMPLEMENTAR -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Dados complementares
+                        </h3>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+
+                        <div class="field">
+
+                            <label>
+                                Vítimas
+                            </label>
+
+                            <input
+                                type="number"
+                                id="vitimas"
+                                min="0"
+                                value="0"
+                            >
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Veículos envolvidos
+                            </label>
+
+                            <input
+                                type="number"
+                                id="veiculos"
+                                min="0"
+                                value="0"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="checks">
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="desencarceramento"
+                            >
+                            Desencarceramento
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="materiasPerigosas"
+                            >
+                            Matérias perigosas
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="riscoIncendio"
+                            >
+                            Risco de incêndio
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="apoioMedico"
+                            >
+                            Apoio médico
+                        </label>
+
+
+                        <label>
+                            <input
+                                type="checkbox"
+                                id="autoridade"
+                            >
+                            Autoridade policial
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+                <!-- MEIOS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <h3>
+                            Meios mobilizados
+                        </h3>
+
+                    </div>
+
+
+                    <div class="vehicle-grid">
+
+                        <label>
+                            <input type="checkbox" value="VLCI">
+                            VLCI
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VFCI">
+                            VFCI
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VRCI">
+                            VRCI
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VUCI">
+                            VUCI
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VECI">
+                            VECI
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VTTU">
+                            VTTU
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VTTR">
+                            VTTR
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VSAT">
+                            VSAT
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VSAE">
+                            VSAE
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="ABSC">
+                            ABSC
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="ABTD">
+                            ABTD
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="ABTM">
+                            ABTM
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VCOT">
+                            VCOT
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VTPT">
+                            VTPT
+                        </label>
+
+                        <label>
+                            <input type="checkbox" value="VPME">
+                            VPME
+                        </label>
+
+                    </div>
+
+
+                    <div class="form-grid external">
+
+
+                        <div class="field">
+
+                            <label>
+                                INEM
+                            </label>
+
+                            <select id="inem">
+
+                                <option>
+                                    Não acionado
+                                </option>
+
+                                <option>
+                                    Ambulância
+                                </option>
+
+                                <option>
+                                    VMER
+                                </option>
+
+                                <option>
+                                    Helicóptero
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                PSP / GNR
+                            </label>
+
+                            <select id="autoridadeExterna">
+
+                                <option>
+                                    Não acionada
+                                </option>
+
+                                <option>
+                                    PSP
+                                </option>
+
+                                <option>
+                                    GNR
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="field full">
+
+                            <label>
+                                Outros meios
+                            </label>
+
+                            <input
+                                id="outrosMeios"
+                                placeholder="Outros meios envolvidos..."
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OBSERVAÇÕES -->
+
+                <div class="panel">
+
+                    <div class="field">
+
+                        <label>
+                            Observações
+                        </label>
+
+                        <textarea
+                            id="observacoes"
+                            rows="5"
+                            placeholder="Informação adicional..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="button"
+                        class="ghost-button"
+                        onclick="limparFormulario()"
+                    >
+                        LIMPAR
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="primary-button large"
+                        id="btnEnviar"
+                    >
+                        🚨 ACIONAR MEIOS
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- OCORRÊNCIAS -->
+        <!-- ================================================= -->
+
+        <section
+            id="pagina-ocorrencias"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        GESTÃO OPERACIONAL
+                    </span>
+
+                    <h2>
+                        Ocorrências
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="search-bar">
+
+                    <input
+                        id="pesquisa"
+                        placeholder="🔎 Pesquisar ocorrência, local ou classificação..."
+                        oninput="filtrarOcorrencias()"
+                    >
+
+                    <select
+                        id="filtroEstado"
+                        onchange="filtrarOcorrencias()"
+                    >
+
+                        <option value="">
+                            Todos os estados
+                        </option>
+
+                        <option>
+                            Aberta
+                        </option>
+
+                        <option>
+                            Em despacho
+                        </option>
+
+                        <option>
+                            Em curso
+                        </option>
+
+                        <option>
+                            Controlada
+                        </option>
+
+                        <option>
+                            Encerrada
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="tabelaOcorrencias"
+                    class="occurrence-list"
+                >
+                    A carregar...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- MEIOS -->
+        <!-- ================================================= -->
+
+        <section
+            id="pagina-meios"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        RECURSOS OPERACIONAIS
+                    </span>
+
+                    <h2>
+                        Meios disponíveis
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="stats-grid">
+
+                <div class="resource-card">
+                    🚒
+                    <strong>VLCI</strong>
+                    <span>Veículo ligeiro de combate a incêndios</span>
+                </div>
+
+                <div class="resource-card">
+                    🚒
+                    <strong>VFCI</strong>
+                    <span>Veículo florestal de combate a incêndios</span>
+                </div>
+
+                <div class="resource-card">
+                    🚑
+                    <strong>ABSC</strong>
+                    <span>Ambulância de socorro</span>
+                </div>
+
+                <div class="resource-card">
+                    📡
+                    <strong>VCOT</strong>
+                    <span>Veículo de comando e operações</span>
+                </div>
+
+                <div class="resource-card">
+                    🚒
+                    <strong>VUCI</strong>
+                    <span>Veículo urbano de combate a incêndios</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- MAPA -->
+        <!-- ================================================= -->
+
+        <section
+            id="pagina-mapa"
+            class="page"
+        >
+
+            <div class="page-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SITUAÇÃO GEOGRÁFICA
+                    </span>
+
+                    <h2>
+                        Mapa operacional
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="map-container">
+
+                <div class="map-placeholder">
+
+                    <div>
+                        🗺️
+                    </div>
+
+                    <h3>
+                        MAPA OPERACIONAL
+                    </h3>
+
+                    <p>
+                        Área preparada para integração
+                        do mapa GTA V / FiveM.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ================================================= -->
+<!-- TOAST -->
+<!-- ================================================= -->
+
+<div
+    id="toast"
+    class="toast"
+>
+    <strong id="toastTitulo">
+        Sistema
+    </strong>
+
+    <span id="toastMensagem">
+        --
+    </span>
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
